@@ -43,15 +43,17 @@ public class ClientProxy extends CommonProxy {
         ((IReloadableResourceManager) Minecraft.getMinecraft()
             .getResourceManager()).registerReloadListener(GeckoLibResourceReloadListener.INSTANCE);
 
-        industries.angelic.salamander.cem.client.CemBeds.register();
-        ((IReloadableResourceManager) Minecraft.getMinecraft()
-            .getResourceManager()).registerReloadListener(CemResources.INSTANCE);
-        FMLCommonHandler.instance()
-            .bus()
-            .register(CemClient.INSTANCE);
-        FMLCommonHandler.instance()
-            .bus()
-            .register(CemClientSignals.INSTANCE);
+        if (industries.angelic.salamander.config.CemConfig.hooks) {
+            industries.angelic.salamander.cem.client.CemBeds.register();
+            ((IReloadableResourceManager) Minecraft.getMinecraft()
+                .getResourceManager()).registerReloadListener(CemResources.INSTANCE);
+            FMLCommonHandler.instance()
+                .bus()
+                .register(CemClient.INSTANCE);
+            FMLCommonHandler.instance()
+                .bus()
+                .register(CemClientSignals.INSTANCE);
+        }
 
         if (DebugConfig.debugMode) DebugClientContent.register();
     }
